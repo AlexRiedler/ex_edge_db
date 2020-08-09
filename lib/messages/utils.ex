@@ -24,7 +24,7 @@ defmodule ExEdgeDB.Messages.Utils do
       raise("Data overflow encoding int, data `#{data}` cannot fit in #{size_in_bits} bits")
     end
 
-    <<data::signed-256>>
+    <<data::signed-size(size_in_bits)>>
   end
 
   defp signed_overflow?(num, max_bits) do

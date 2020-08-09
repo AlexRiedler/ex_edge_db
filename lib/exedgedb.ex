@@ -17,9 +17,11 @@ defmodule ExEdgeDB do
   end
 
 
-  def connect(handshake) do
+  def connect do
     {:ok, socket} = :gen_tcp.connect('localhost', 5656, [:binary, {:packet, 0}, {:active, false}])
-    {size, msg} = ExEdgeDB.Messages.ClientHandshake.encode(handshake)
+    {_size, msg} = ExEdgeDB.Messages.Packer.pack(%ExEdgeDB.Messages.ClientHandshake{major_version: 1, minor_version: 0, params: [], extensions: []})
+    IO.inspect("SENDING:")
+    IO.inspect(msg)
     :ok = :gen_tcp.send(socket, msg)
     {:ok, msg} = receive_message(socket)
     :ok = :gen_tcp.close(socket)
@@ -33,7 +35,6 @@ defmodule ExEdgeDB do
     case :binary.decode_unsigned(msg_type) do
       ?v ->
         IO.puts("Received Server Handshake")
-        << major_ver::16, 
       ?E -> 
         IO.puts("Error Occurred")
         << severity::8, error_code::32, str_size::32, remaining::binary>> = payload
