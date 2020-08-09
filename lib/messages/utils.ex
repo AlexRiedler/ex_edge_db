@@ -1,11 +1,21 @@
 defmodule ExEdgeDB.Messages.Utils do
 
-  def encode_bytes(data) do
-    {4 + byte_size(data), encode_uint(byte_size(data), 32) <> data}
+  def decode_string(data) do
+    <<length::size(32), remaining::binary>> = data
+    bits = length * 8
+    <<str::bitstring-size(bits), remains::binary>> = remaining
+    {str, remains}
   end
 
-  def encode_string(data) do
-    {4 + byte_size(data), encode_uint(byte_size(data), 32) <> data}
+  def decode_list(module, 0, data) do
+    {[], data}
+  end
+  def decode_list(module, length, data) do
+    {xs, remaining} = Enum.reduce(1..length, {[], data}, fn _, {list, binary} ->
+      {elem, remains} = module.decode(binary)
+      {[elem | list], remains}
+    end)
+    {Enum.reverse(xs), remaining}
   end
 
   def encode_uint(data, size_in_bits) when rem(size_in_bits, 8) == 0 do

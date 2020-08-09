@@ -16,6 +16,32 @@ defmodule ExEdgeDB do
     :world
   end
 
+  def test do
+    {_size, msg} = ExEdgeDB.Messages.Packer.pack(
+      %ExEdgeDB.Messages.ClientHandshake{
+        major_version: 1,
+        minor_version: 0,
+        params: [],
+        extensions: [
+          %ExEdgeDB.Messages.ProtocolExtension{
+            name: "Magic",
+            headers: [
+              %ExEdgeDB.Messages.Header{
+                code: 1,
+                value: "foo"
+              },
+              %ExEdgeDB.Messages.Header{
+                code: 15,
+                value: "bar"
+              }
+            ]
+          }
+        ]
+      }
+    )
+    IO.inspect(ExEdgeDB.Messages.ClientHandshake.decode(msg))
+  end
+
 
   def connect do
     {:ok, socket} = :gen_tcp.connect('localhost', 5656, [:binary, {:packet, 0}, {:active, false}])

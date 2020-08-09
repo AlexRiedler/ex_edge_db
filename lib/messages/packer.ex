@@ -58,7 +58,7 @@ defimpl ExEdgeDB.Messages.Packer, for: Any do
   end
 
   def bytesize(msg) do
-    Enum.reduce(msg.__struct__.encoding(msg), fn elem, acc_size ->
+    Enum.reduce(msg.__struct__.encoding(msg), 0, fn elem, acc_size ->
       acc_size + ExEdgeDB.Messages.Packer.bytesize(elem)
     end)
   end
