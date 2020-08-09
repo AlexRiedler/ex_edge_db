@@ -1,5 +1,5 @@
 # TODO: bound the new methods, to the valid int ranges
-defmodule ExEdgeDB.Messages.Int8 do
+defmodule ExEdgeDb.Messages.Int8 do
   def new(value) do
     {__MODULE__, value}
   end
@@ -17,11 +17,11 @@ defmodule ExEdgeDB.Messages.Int8 do
   end
 
   def encode(value) do
-    {__MODULE__.bitsize / 8 |> round, ExEdgeDB.Messages.Utils.encode_int(value, __MODULE__.bitsize)}
+    {__MODULE__.bitsize / 8 |> round, ExEdgeDb.Messages.Utils.encode_int(value, __MODULE__.bitsize)}
   end
 end
 
-defmodule ExEdgeDB.Messages.Int16 do
+defmodule ExEdgeDb.Messages.Int16 do
   def new(value) do
     {__MODULE__, value}
   end
@@ -39,11 +39,11 @@ defmodule ExEdgeDB.Messages.Int16 do
   end
 
   def encode(value) do
-    {__MODULE__.bitsize / 8 |> round, ExEdgeDB.Messages.Utils.encode_int(value, __MODULE__.bitsize)}
+    {__MODULE__.bitsize / 8 |> round, ExEdgeDb.Messages.Utils.encode_int(value, __MODULE__.bitsize)}
   end
 end
 
-defmodule ExEdgeDB.Messages.Int32 do
+defmodule ExEdgeDb.Messages.Int32 do
   def new(value) do
     {__MODULE__, value}
   end
@@ -61,11 +61,11 @@ defmodule ExEdgeDB.Messages.Int32 do
   end
 
   def encode(value) do
-    {__MODULE__.bitsize / 8 |> round, ExEdgeDB.Messages.Utils.encode_int(value, __MODULE__.bitsize)}
+    {__MODULE__.bitsize / 8 |> round, ExEdgeDb.Messages.Utils.encode_int(value, __MODULE__.bitsize)}
   end
 end
 
-defmodule ExEdgeDB.Messages.UInt8 do
+defmodule ExEdgeDb.Messages.UInt8 do
   def new(value) do
     {__MODULE__, value}
   end
@@ -83,11 +83,11 @@ defmodule ExEdgeDB.Messages.UInt8 do
   end
 
   def encode(value) do
-    {__MODULE__.bitsize / 8 |> round, ExEdgeDB.Messages.Utils.encode_uint(value, __MODULE__.bitsize)}
+    {__MODULE__.bitsize / 8 |> round, ExEdgeDb.Messages.Utils.encode_uint(value, __MODULE__.bitsize)}
   end
 end
 
-defmodule ExEdgeDB.Messages.UInt16 do
+defmodule ExEdgeDb.Messages.UInt16 do
   def new(value) do
     {__MODULE__, value}
   end
@@ -105,11 +105,11 @@ defmodule ExEdgeDB.Messages.UInt16 do
   end
 
   def encode(value) do
-    {__MODULE__.bitsize / 8 |> round, ExEdgeDB.Messages.Utils.encode_uint(value, __MODULE__.bitsize)}
+    {__MODULE__.bitsize / 8 |> round, ExEdgeDb.Messages.Utils.encode_uint(value, __MODULE__.bitsize)}
   end
 end
 
-defmodule ExEdgeDB.Messages.UInt32 do
+defmodule ExEdgeDb.Messages.UInt32 do
   def new(value) do
     {__MODULE__, value}
   end
@@ -127,11 +127,11 @@ defmodule ExEdgeDB.Messages.UInt32 do
   end
 
   def encode(value) do
-    {__MODULE__.bitsize / 8 |> round, ExEdgeDB.Messages.Utils.encode_uint(value, __MODULE__.bitsize)}
+    {__MODULE__.bitsize / 8 |> round, ExEdgeDb.Messages.Utils.encode_uint(value, __MODULE__.bitsize)}
   end
 end
 
-defmodule ExEdgeDB.Messages.Uuid do
+defmodule ExEdgeDb.Messages.Uuid do
   def new(value) do
     {__MODULE__, value}
   end
@@ -149,6 +149,6 @@ defmodule ExEdgeDB.Messages.Uuid do
   end
 
   def encode(value) do
-    {__MODULE__.bitsize / 8 |> round, ExEdgeDB.Messages.Utils.encode_uint(value, __MODULE__.bitsize)}
+    {__MODULE__.bitsize / 8 |> round, ExEdgeDb.Messages.Utils.encode_uint(value, __MODULE__.bitsize)}
   end
 end

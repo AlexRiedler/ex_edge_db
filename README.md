@@ -1,4 +1,4 @@
-# Exedgedb
+# ExEdgeDb
 
 **TODO: Add description**
 

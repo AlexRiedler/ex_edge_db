@@ -1,4 +1,4 @@
-defmodule ExEdgeDB.Messages.Utils do
+defmodule ExEdgeDb.Messages.Utils do
 
   def decode_string(data) do
     <<length::size(32), remaining::binary>> = data

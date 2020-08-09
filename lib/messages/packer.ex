@@ -1,10 +1,10 @@
-defprotocol ExEdgeDB.Messages.Packer do
+defprotocol ExEdgeDb.Messages.Packer do
   def pack(term) 
   def bytesize(term)
 end
 
-defimpl ExEdgeDB.Messages.Packer, for: BitString do
-  import ExEdgeDB.Messages.Utils
+defimpl ExEdgeDb.Messages.Packer, for: BitString do
+  import ExEdgeDb.Messages.Utils
 
   def pack(binary) when is_binary(binary) do
     size = bytesize(binary)
@@ -16,22 +16,22 @@ defimpl ExEdgeDB.Messages.Packer, for: BitString do
   end
 end
 
-defimpl ExEdgeDB.Messages.Packer, for: List do
+defimpl ExEdgeDb.Messages.Packer, for: List do
   def pack(list) do
     Enum.reduce(list, {0, <<>>}, fn elem, {acc_size, acc_message} ->
-      {size, message} = ExEdgeDB.Messages.Packer.pack(elem)
+      {size, message} = ExEdgeDb.Messages.Packer.pack(elem)
       {acc_size + size, acc_message <> message}
     end)
   end
 
   def bytesize(list) do
     Enum.reduce(list, 0, fn elem, acc_size ->
-      acc_size + ExEdgeDB.Messages.Packer.bytesize(elem)
+      acc_size + ExEdgeDb.Messages.Packer.bytesize(elem)
     end)
   end
 end
 
-defimpl ExEdgeDB.Messages.Packer, for: Tuple do
+defimpl ExEdgeDb.Messages.Packer, for: Tuple do
   def pack(tuple) do
     case tuple do
       {module, value} -> module.encode(value)
@@ -49,17 +49,17 @@ defimpl ExEdgeDB.Messages.Packer, for: Tuple do
   end
 end
 
-defimpl ExEdgeDB.Messages.Packer, for: Any do
+defimpl ExEdgeDb.Messages.Packer, for: Any do
   def pack(msg) do
     Enum.reduce(msg.__struct__.encoding(msg), {0, ""}, fn elem, {acc_size, acc_message} ->
-      {size, message} = ExEdgeDB.Messages.Packer.pack(elem)
+      {size, message} = ExEdgeDb.Messages.Packer.pack(elem)
       {acc_size + size, acc_message <> message}
     end)
   end
 
   def bytesize(msg) do
     Enum.reduce(msg.__struct__.encoding(msg), 0, fn elem, acc_size ->
-      acc_size + ExEdgeDB.Messages.Packer.bytesize(elem)
+      acc_size + ExEdgeDb.Messages.Packer.bytesize(elem)
     end)
   end
 end

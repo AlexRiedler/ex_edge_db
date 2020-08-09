@@ -1,6 +1,6 @@
-defmodule ExEdgeDB do
+defmodule ExEdgeDb do
   @moduledoc """
-  Documentation for `Exedgedb`.
+  Documentation for `ExEdgeDb`.
   """
 
   @doc """
@@ -8,7 +8,7 @@ defmodule ExEdgeDB do
 
   ## Examples
 
-      iex> ExEdgeDB.hello()
+      iex> ExEdgeDb.hello()
       :world
 
   """
@@ -17,20 +17,20 @@ defmodule ExEdgeDB do
   end
 
   def test do
-    {_size, msg} = ExEdgeDB.Messages.Packer.pack(
-      %ExEdgeDB.Messages.ClientHandshake{
+    {_size, msg} = ExEdgeDb.Messages.Packer.pack(
+      %ExEdgeDb.Messages.ClientHandshake{
         major_version: 1,
         minor_version: 0,
         params: [],
         extensions: [
-          %ExEdgeDB.Messages.ProtocolExtension{
+          %ExEdgeDb.Messages.ProtocolExtension{
             name: "Magic",
             headers: [
-              %ExEdgeDB.Messages.Header{
+              %ExEdgeDb.Messages.Header{
                 code: 1,
                 value: "foo"
               },
-              %ExEdgeDB.Messages.Header{
+              %ExEdgeDb.Messages.Header{
                 code: 15,
                 value: "bar"
               }
@@ -39,13 +39,13 @@ defmodule ExEdgeDB do
         ]
       }
     )
-    IO.inspect(ExEdgeDB.Messages.ClientHandshake.decode(msg))
+    IO.inspect(ExEdgeDb.Messages.ClientHandshake.decode(msg))
   end
 
 
   def connect do
     {:ok, socket} = :gen_tcp.connect('localhost', 5656, [:binary, {:packet, 0}, {:active, false}])
-    {_size, msg} = ExEdgeDB.Messages.Packer.pack(%ExEdgeDB.Messages.ClientHandshake{major_version: 1, minor_version: 0, params: [], extensions: []})
+    {_size, msg} = ExEdgeDb.Messages.Packer.pack(%ExEdgeDb.Messages.ClientHandshake{major_version: 1, minor_version: 0, params: [], extensions: []})
     IO.inspect("SENDING:")
     IO.inspect(msg)
     :ok = :gen_tcp.send(socket, msg)

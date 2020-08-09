@@ -1,4 +1,4 @@
-defmodule Exedgedb.MixProject do
+defmodule ExEdgeDb.MixProject do
   use Mix.Project
 
   def project do
