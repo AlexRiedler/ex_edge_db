@@ -7,7 +7,7 @@ defmodule ExEdgeDb.Messages.Utils do
     {str, remains}
   end
 
-  def decode_list(module, 0, data) do
+  def decode_list(_module, 0, data) do
     {[], data}
   end
   def decode_list(module, length, data) do

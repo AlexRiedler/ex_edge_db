@@ -56,7 +56,7 @@ defmodule ExEdgeDb.Messages.ConnectionParam do
 
   def decode(binary) do
     {name, rs} = ExEdgeDb.Messages.Utils.decode_string(binary)
-    {value, rss} = ExEdgeDb.Messages.Utils.decode_string(binary)
+    {value, rss} = ExEdgeDb.Messages.Utils.decode_string(rs)
     {%__MODULE__{name: name, value: value}, rss}
   end
 end
