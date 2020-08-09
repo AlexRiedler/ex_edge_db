@@ -7,6 +7,17 @@ defmodule ExEdgeDb.Messages.Utils do
     {str, remains}
   end
 
+  def decode_string_list(0, data) do
+    {[], data}
+  end
+  def decode_string_list(length, data) do
+    {xs, remaining} = Enum.reduce(1..length, {[], data}, fn _, {list, binary} ->
+      {elem, remains} = decode_string(binary)
+      {[elem | list], remains}
+    end)
+    {Enum.reverse(xs), remaining}
+  end
+
   def decode_list(_module, 0, data) do
     {[], data}
   end
